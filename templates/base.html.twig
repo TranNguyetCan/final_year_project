@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			{% block title %}
+				VESTA
+			{% endblock %}
+		</title>
+
+		<!-- Writing by Vietnamese -->
+		<meta charset="UTF-8"/>
+		<meta
+		http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<!-- The size of brower = 100% -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>VESTA</title>
+		<link
+		rel="icon" href="{{ asset('images/logo_store.jpg') }}"/>
+		<!-- bootstrap 5 cdn -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"/>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+		<!-- bootstrap icon -->
+		<link
+		rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"/>
+		<!-- fontawesome -->
+		<link
+		rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+		{#  #}
+		<link
+		href="img/favicon.ico" rel="icon">
+
+		<!-- Google Web Fonts -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link
+		href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+		<!-- Font Awesome -->
+		<link
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+		<!-- Libraries Stylesheet -->
+		<link href="lib/animate/animate.min.css" rel="stylesheet">
+		<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+		<link
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href=<!-- Bootstrap 5 CSS CDN -->
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" 
+		integrity="sha384-GLhlTQz6O2j9zZ58b+Lqtx8XqRIp4yTGQdZ96A0p5a5EBuP8EYj2z8n1Ulch2I4" crossorigin="anonymous">
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+		  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+		{# Js ajax #}
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+			<link rel="stylesheet" href="{{ asset('css/header.css') }}"/>
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
+		{# Header #}
+		{% block header %}
+			<!-- Logo -->
+			<hr class="line"/>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<div
+					class="container-fluid">
+					<!-- Menu in mobile phone -->
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggerMobileMenu" aria-controls="toggerMobileMenu" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<!-- Search and Address button -->
+					<div class="d-flex align-items-center w-50">
+						<form action="/product" class="d-flex ms-4 mb-2 w-50">
+							<input type="text" class="form-control rounded search" name="value" placeholder="Search..." aria-label="search" aria-describedby="search-addon"/>
+							<button type="submit" name="btnSearch" value="search" class="input-group-text border-0">
+								<i class="fa-solid fa-magnifying-glass"></i>
+							</button>
+						</form>
+						<button type="button" class="btn btn-outline-secondary ms-3 w-25" data-bs-toggle="modal" data-bs-target="#myModal">
+							Choose Address
+						</button>
+					</div>
+					<!-- Modal -->
+					<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="myModalLabel">Địa chỉ đã chọn</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Tìm nhanh tỉnh thành, quận huyện, phường xã">
+									</div>
+									<div class="branch-column">
+										<div class="col" id="branch-list"></div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- collapse: thu ra thu vào -->
+					<div
+						class="collapse navbar-collapse" id="toggerMobileMenu">
+						<!-- Menu bar -->
+						<div
+							class="container navbar-nav justify-content-center">
+							<!-- active: highline -->
+							<a class="nav-link" href="{{ path('home_page') }}">Home</a>
+							<a class="nav-link" href="{{ path('showProduct') }}">Product</a>
+							<a class="nav-link" href="{{ path('index') }}">Voucher</a>
+							<div class="nav-item dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Category
+									{# <i class="fa-solid fa-caret-down"></i> #}
+								</a>
+								<div class="dropdown-menu fade-down m-0">
+									<a href="#" class="dropdown-item">Tealight Candle</a>
+									<a href="#" class="dropdown-item">Votive Candle</a>
+									<a href="#" class="dropdown-item">Gel Candle</a>
+									<a href="#" class="dropdown-item">Candle Cup</a>
+								</div>
+							</div>
+							<div class="nav-item dropdown">
+								<a href="{{ path('showIngre') }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Ingredient
+									{# <i class="fa-solid fa-caret-down"></i> #}
+								</a>
+								<div class="dropdown-menu fade-down m-0">
+									<a href="#" class="dropdown-item">Candle Wax</a>
+									<a href="#" class="dropdown-item">Essential Oil</a>
+									<a href="#" class="dropdown-item">Scented Candle Cup</a>
+									<a href="#" class="dropdown-item">Candle Decoration</a>
+								</div>
+							</div>
+							<a class="nav-link" href="{{ path('aboutUs') }}">About</a>
+						</div>
+					</div>
+
+					<!-- Right elements -->
+					<div class="d-flex align-items-center ms-auto">
+						{% if app.user %}
+							<!-- Icon -->
+							<a class="text-reset me-4 position-relative" href="{{ path('shoppingCart') }}">
+								<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+								<span class="cart-item-count badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle" id="shopingCart">0</span>
+							</a>
+
+							<!-- Avatar -->
+							<div class="dropdown">
+								<a class="hidden-arrow" href="{{ path('cus_profile') }}" id="navbarDropdownMenuAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									{% if app.user.avatar is not null %}
+										<img src="{{ asset('/images/' ~ app.user.avatar) }}" alt="avatar" class="rounded-circle img-fluid" style="width: 40px;">
+										{% else %}
+									<!-- Hiển thị một biểu tượng mặc định nếu người dùng không có ảnh đại diện -->
+										{# <img src="{{ asset('images/account2.jpg') }}" class="rounded-circle" height="36" alt="My account" loading="lazy">#}
+									{% endif %}
+									<label for="account" class="ms-2 link-dark" style="font-size: 1rem;"></label>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuAccount">
+									<li>
+										<a href="{{ path('cus_profile') }}" class="dropdown-item">Profile</a>
+									</li>
+									<li>
+										<a href="{{ path('logout_page') }}" class="dropdown-item">Logout</a>
+									</li>
+								</ul>
+							</div>
+						{% else %}
+							<a href="{{ path('logIn_page') }}" class="btn btn-outline-dark me-2">Login</a>
+							<a href="{{ path('signin_page') }}" class="btn btn-dark">Register</a>
+						{% endif %}
+					</div>
+				</div>
+			</nav>
+		{% endblock %}
+	</body>
+</html>
+
+{% block body %}{% endblock %}
+
+{% block footer %}
+	<hr/>
+	<footer class="text-center text-lg-start text-dark footer">
+		<div
+			class="text-md-start">
+			<!-- Grid row -->
+			<div
+				class="row mt-4 mx-2">
+				<!-- Grid column -->
+
+				<div
+					class="col-md-4 mb-4 text-center">
+					<!-- Content -->
+					<h6 class="text-uppercase fw-bold">About us</h6>
+					<hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: grey; height: 2px"/>
+					<p class="mx-5">
+						<a href="{{ path('aboutUs') }}" class="text-dark text-decoration-none">Dana.ischg Store is a brand from Vietnam, born in 2022. Started off as a small thrift shop in CanTho, Vietnam. Through the lens of fashionary, Dana.ischg would like to share experiences and POV in music, movies, and art, connecting the community of youth with global lifestyle.</a>
+					</p>
+				</div>
+
+				<!-- Grid column -->
+				<div
+					class="col-md-2 mb-4 text-center" style="width: 200px;">
+					<!-- Links -->
+					<h6 class="text-uppercase fw-bold">Products</h6>
+					<hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: grey; height: 2px"/>
+					<p>
+						<a href="{{ path('home_page') }}" class="text-dark text-decoration-none">Home</a>
+					</p>
+					<p>
+						<a href="{{ path('showProduct') }}" class="text-dark text-decoration-none">Product</a>
+					</p>
+					{# <p>
+																																																																																																																																																																															<a href="{{path('showProduct')}}" class="text-dark text-decoration-none">Sale</a>
+																																																																																																																																																																														</p> #}
+					<p>
+						<a href="{{ path('aboutUs') }}" class="text-dark text-decoration-none">About</a>
+					</p>
+				</div>
+
+				<div class="col-ms-3 mb-4 text-center" style="width: 300px !important;">
+					<h6 class="text-uppercase fw-bold">Contact Us</h6>
+					<hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: grey; height: 2px"/>
+
+					<p class="mb-2" style="text-align: left !important;">
+						<i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, Ninh Kieu, Can Tho</p>
+					<p class="mb-2" style="text-align: left !important;">
+						<i class="fa fa-envelope text-primary mr-3"></i>Tranguyetcantsga@gmail.com</p>
+					<p class="mb-2" style="text-align: left !important;">
+						<i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+
+				</div>
+
+				<div
+					class="col-md-3 mb-5 d-flex" style="">
+					{# <div class="bg-light p-30 mb-30"> #}
+					<iframe class="shadow" style="border-radius: 12px; margin-left: 30%;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.8640680661892!2d105.7711491793457!3d10.028074201038898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a062a8990f568d%3A0x2a22d599b2c06b23!2sGreenwich%20Vi%E1%BB%87t%20Nam!5e0!3m2!1sen!2s!4v1715958051557!5m2!1sen!2s" width="450" height="200" style="border:0; margin - left" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+					{# </div> #}
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+</footer>
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script> 	 #}
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="{{ asset('js/main.js') }}"></script>
+<script>
+	$(document).ready(function () {
+$.ajax({
+url: '/cart/count',
+type: 'GET',
+success: function (response) {
+console.log(response)
+$('#shopingCart').text(response.length)
+}
+})
+})
+</script>{# link to main.js #}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Hàm để load danh sách chi nhánh từ server
+    function loadBranches() {
+        fetch('/branches') // Thay đổi endpoint cho phù hợp
+            .then(response => response.json())
+            .then(data => {
+                const branchList = document.getElementById('branch-list');
+                branchList.innerHTML = ''; // Xóa các chi nhánh cũ
+
+                data.forEach(branch => {
+                    const branchItem = document.createElement('div');
+                    branchItem.className = 'branch-item';
+                    branchItem.textContent = branch.name;
+                    branchItem.dataset.branchId = branch.id;
+                    branchList.appendChild(branchItem);
+                });
+
+                // Thêm sự kiện click cho từng chi nhánh
+                document.querySelectorAll('.branch-item').forEach(item => {
+                    item.addEventListener('click', function () {
+                        const branchId = this.dataset.branchId;
+                        chooseBranch(branchId);
+                    });
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Hàm để xử lý khi chọn một chi nhánh
+    function chooseBranch(branchId) {
+        fetch(`/products?branch_id=${branchId}`) // Thay đổi endpoint cho phù hợp
+            .then(response => response.json())
+            .then(data => {
+                // Xử lý dữ liệu sản phẩm tồn kho và hiển thị
+                console.log(data); // Thay đổi đoạn này để hiển thị dữ liệu theo cách của bạn
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Gọi hàm loadBranches khi modal được mở
+    $('#myModal').on('show.bs.modal', function () {
+        loadBranches();
+    });
+});
+</script>
+
+</body></html>{# tôi muốn hiển thị số lượng sản phẩm trong đơn hàng ra tại id = shopingCart tại controller cart #}<

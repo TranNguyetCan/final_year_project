@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	<link href="{{asset('css/styles/ordertracking.css')}}" rel="stylesheet" media="all">
+{% endblock %}
+{% block body %}
+	<div class="container">
+		<article class="card">
+			<header class="card-header">
+				My Orders / Tracking
+			</header>
+			{% for order in orders %}
+				<div class="card-body">
+					<h6>Order ID: {{order.id}}</h6>
+					<article class="card">
+						<div class="card-body row">
+							<div class="col">
+								<strong>Estimated Delivery time:</strong>
+								<br>{{order.date|date('Y-m-d') }}
+							</div>
+							{# <div class="col">
+														<strong>Shipping BY:</strong>
+														<br>
+														{{order.shipping}}, |
+														<i class="fa fa-phone"></i>
+														{{order.username.phone}}
+													</div> #}
+							<div class="col">
+								<strong>Status:</strong>
+								<br>
+								{{order.status.value}}
+								{% if order.status == 'ordered' %}
+								Order confirmed
+								{% endif %}
+							</div>
+							<div class="col">
+								<strong>Tracking #:</strong>
+								<br>
+								{{order.id}}
+							</div>
+						</div>
+					</article>
+					{% if order.status.value == 'ordered' %}
+						<div class="alert alert-warning" role="alert">
+							<i class="fa fa-check"></i>
+							Order confirmed
+						</div>
+					{# {% elseif order.status == 'Picked by courier' %}
+						<div class="alert alert-warning" role="alert">
+							<i class="fa fa-user"></i>
+							<div class="track">
+								<div class="step {{ order.status == 'Order confirmed' ? 'active' : '' }}">
+									<span class="icon">
+										<i class="fa fa-check"></i>
+									</span>
+									<span class="text">Order confirmed</span>
+								</div>
+								<div class="step {{ order.status == 'Picked by courier' ? 'active' : '' }}">
+									<span class="icon">
+										<i class="fa fa-user"></i>
+									</span>
+									<span class="text">Picked by courier</span>
+								</div>
+								<div class="step {{ order.status == 'On the way' ? 'active' : '' }}">
+									<span class="icon">
+										<i class="fa fa-truck"></i>
+									</span>
+									<span class="text">On the way</span>
+								</div>
+								<div class="step {{ order.status == 'Ready for pickup' ? 'active' : '' }}">
+									<span class="icon">
+										<i class="fa fa-box"></i>
+									</span>
+									<span class="text">Ready for pickup</span>
+								</div>
+							</div>
+							
+							 #}
+							 {% endif %}
+							<hr>
+							<ul class="row">
+								{% for item in order.orderDetails %}
+									<li class="col-md-4">
+										<figure class="d-flex mb-3">
+											<div class="flex-shrink-0">
+												{% set img = item.proSize.product.image %}
+												<img src="{{asset('images/'~img)}}" width="90">
+											</div>
+											<figcaption class="flex-grow-1 ms-3">
+												<p class="h6">{{ item.proSize.product.name }}
+													<br>{{ item.proSize.product.descriptions }}</p>
+												<span class="text-muted">${{ item.proSize.product.price }}</span>
+											</figcaption>
+										</figure>
+									</li>
+								{% endfor %}
+							</ul>
+							<hr>
+							<a href="{{ path('orderlist') }}" class="btn btn-warning">
+								<i class="fa fa-chevron-left"></i>
+								Back to orders</a>
+						</div>
+					{% endfor %}
+					</article>
+				</div>
+			{% endblock %}
+
