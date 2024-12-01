@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2024 at 09:39 AM
+-- Generation Time: Dec 01, 2024 at 01:15 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.1.25
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -120,7 +120,8 @@ CREATE TABLE `discount` (
 --
 
 INSERT INTO `discount` (`id`, `end_date`, `discount_code`, `discount_percentage`, `start_date`) VALUES
-(2, '2025-01-01', 'CODE789000', '50', '2024-11-11');
+(2, '2025-01-01', 'CODE789000', '50', '2024-11-11'),
+(5, '2024-05-10', 'CODE12334', '40', '2024-05-08');
 
 -- --------------------------------------------------------
 
@@ -150,7 +151,56 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20240612172821', '2024-06-12 19:28:30', 41),
 ('DoctrineMigrations\\Version20240612172935', '2024-06-12 19:29:43', 39),
 ('DoctrineMigrations\\Version20240714173000', '2024-07-14 19:34:29', 39),
-('DoctrineMigrations\\Version20240716025724', '2024-07-16 04:57:34', 1746);
+('DoctrineMigrations\\Version20240716025724', '2024-07-16 04:57:34', 1746),
+('DoctrineMigrations\\Version20241007061541', '2024-10-07 15:05:22', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ingredient`
+--
+
+CREATE TABLE `ingredient` (
+  `id` int(11) NOT NULL,
+  `ingredient_id` int(11) DEFAULT NULL,
+  `material_id` int(11) DEFAULT NULL,
+  `material_name` varchar(255) DEFAULT NULL,
+  `quantity` varchar(255) NOT NULL,
+  `unit` varchar(255) NOT NULL,
+  `price` varchar(255) NOT NULL,
+  `inventory` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ingredient`
+--
+
+INSERT INTO `ingredient` (`id`, `ingredient_id`, `material_id`, `material_name`, `quantity`, `unit`, `price`, `inventory`, `name`, `image`) VALUES
+(2, NULL, 2, NULL, '12', 'g', '30', '20', 'Soy Wax', 'z6075923520728-20a70d78dae61e2240fb4618ef05e9fb-674821a9c3359.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `material`
+--
+
+CREATE TABLE `material` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `material`
+--
+
+INSERT INTO `material` (`id`, `name`, `description`) VALUES
+(1, 'candle', 'candle'),
+(2, 'candle wax', 'candle wax'),
+(3, 'flavoring', 'flavoring'),
+(4, 'candle cup', 'candle cup');
 
 -- --------------------------------------------------------
 
@@ -160,13 +210,15 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 
 CREATE TABLE `order` (
   `id` int(11) NOT NULL,
-  `date` datetime NOT NULL,
-  `total` decimal(10,2) NOT NULL,
-  `delivery_local` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  `username_id` int(11) NOT NULL,
-  `cus_name` varchar(255) NOT NULL,
-  `cus_phone` int(11) NOT NULL
+  `date` datetime DEFAULT NULL,
+  `total` decimal(10,2) DEFAULT NULL,
+  `delivery_local` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `username_id` int(11) DEFAULT NULL,
+  `cus_name` varchar(255) DEFAULT NULL,
+  `cus_phone` int(11) DEFAULT NULL,
+  `vouchers_id` int(11) DEFAULT NULL,
+  `payment_method` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -177,7 +229,7 @@ CREATE TABLE `order` (
 
 CREATE TABLE `order_detail` (
   `id` int(11) NOT NULL,
-  `orders_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `pro_size_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -237,29 +289,29 @@ CREATE TABLE `product` (
   `status` tinyint(1) NOT NULL,
   `descriptions` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `for_gender` tinyint(1) NOT NULL,
   `image` varchar(255) NOT NULL,
   `supplier_id` int(11) DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,
-  `branch` varchar(255) NOT NULL
+  `branch` varchar(255) NOT NULL,
+  `for_gender` tinyint(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `category_id`, `name`, `status`, `descriptions`, `price`, `for_gender`, `image`, `supplier_id`, `rating`, `branch`) VALUES
-(1, 2, 'VESTA VANILA', 0, 'White tea is a type of tea that is gently processed from young tea leaves and has not undergone much oxidation, retaining its fresh flavor and natural aroma. When transformed into a scented candle scent, white tea brings a peaceful and sophisticated atmos', 5.00, 1, 'cinnamon-flavor-6695de167c3ed.webp', 4, NULL, ''),
-(5, 1, 'Cat\'s legs', 0, 'The soothing scent from candles can help reduce stress, anxiety and create a feeling of peace. Popular aromas such as lavender, lemon, and jasmine are widely used in scented candles to bring wonderful moments of relaxation.', 8.00, 0, 'd2661efbb0db530902d22f4b2dcc789e-6690172921f3a.jpg', 4, NULL, ''),
-(6, 3, 'VESTA Startfish', 0, 'The meticulousness and beauty of the gel candle jar will make you stunned and surprised. Made from beautiful dried flowers, the candle also has a gentle scent from natural essential oils, helping you feel more relaxed and comfortable. This is not only a g', 6.00, 1, 'Starfish-6690182cdb36c.jpg', 4, NULL, ''),
-(7, 2, 'VESTA Lemon', 0, 'Lemon scent is also one of the popular ingredients and should be present in your candle. The main ingredient in lemon essential oil has very strong antioxidant properties as well as creating a faint, not too harsh scent, suitable for use when needing to d', 8.00, 0, 'Lemon-6690188a27d06.jpg', 4, NULL, ''),
-(16, 4, 'VESTA Cinnamon Vanilla', 0, 'The delicate combination of spicy Cinnamon scent with sweet Vanilla scent, scented candles evoke a feeling of togetherness and familiarity, helping to relax the spirit and warm the space.', 8.00, 1, 'Cinnamon-Vanilla-669018d10dc8a.webp', 4, NULL, ''),
-(26, 3, 'VESTA Chrysanthemum Gel Candle', 0, 'The candlelight no longer simply shimmers through the candle wick, but will spread through the decorative gel layer as if shining on a beautiful mirror. This is not only a great aroma therapy but also a useful \"virtual living\" tool.', 7.00, 1, 'ChrysanthemumMini-669021dee1804.jpg', 4, NULL, ''),
-(27, 1, 'VESTA Bear Candle', 0, 'The soothing scent from candles can help reduce stress, anxiety and create a feeling of peace. Popular aromas such as lavender, lemon, and jasmine are widely used in scented candles to bring wonderful moments of relaxation.', 4.00, 1, 'gau-jpg-6690222d637c8.webp', 4, NULL, ''),
-(28, 2, 'VESTA Tea plant', 0, 'Purify and nourish the soul with natural tea scent. Closing your eyes to meditate makes people feel comfortable and relaxed.', 8.00, 0, 'tea-plant-66902384c5e5f.jpg', 4, NULL, ''),
-(32, 1, 'VESTA Orange Candle', 0, 'the smell of oranges, exchanging hugs, holding hands tightly, a little sweetness for the couple for the season of love. After a day of reeling from life, returning home, lighting a jar of candles, seeing the words \"Darling, I\'m home\" sparkling brightly, m', 3.00, 1, 'Orange-669024003a036.webp', 4, NULL, ''),
-(33, 1, 'VESTA flower', 0, 'The soothing scent from candles can help reduce stress, anxiety and create a feeling of peace. Popular aromas such as lavender, lemon, and jasmine are widely used in scented candles to bring wonderful moments of relaxation.', 2.00, 1, 'vn-11134201-7qukw-liifb8wobh7619-669024bcd46b3.jpg', 4, NULL, ''),
-(35, 4, 'VESTA White tea', 0, 'White tea is a type of tea that is gently processed from young tea leaves and has not undergone much oxidation, retaining its fresh flavor and natural aroma. When transformed into a scented candle scent, white tea brings a peaceful and sophisticated atmos', 5.00, 1, 'white-tea-669024e56c34c.jpg', 4, NULL, '');
+INSERT INTO `product` (`id`, `category_id`, `name`, `status`, `descriptions`, `price`, `image`, `supplier_id`, `rating`, `branch`, `for_gender`) VALUES
+(1, 2, 'VESTA VANILA', 0, 'White tea is a type of tea that is gently processed from young tea leaves and has not undergone much oxidation, retaining its fresh flavor and natural aroma. When transformed into a scented candle scent, white tea brings a peaceful and sophisticated atmos', 5.00, 'cinnamon-flavor-6695de167c3ed.webp', 4, NULL, '', 0),
+(5, 1, 'Cat\'s legs', 0, 'The soothing scent from candles can help reduce stress, anxiety and create a feeling of peace. Popular aromas such as lavender, lemon, and jasmine are widely used in scented candles to bring wonderful moments of relaxation.', 8.00, 'd2661efbb0db530902d22f4b2dcc789e-6690172921f3a.jpg', 4, NULL, '', 0),
+(6, 2, 'VESTA Pink', 0, 'The meticulousness and beauty of the gel candle jar will make you stunned and surprised. Made from beautiful dried flowers, the candle also has a gentle scent from natural essential oils, helping you feel more relaxed and comfortable. This is not only a g', 6.00, '1732732155446-674770d271e70.png', 4, NULL, '', 0),
+(7, 2, 'VESTA Lemon', 0, 'Lemon scent is also one of the popular ingredients and should be present in your candle. The main ingredient in lemon essential oil has very strong antioxidant properties as well as creating a faint, not too harsh scent, suitable for use when needing to d', 8.00, 'Lemon-6690188a27d06.jpg', 4, NULL, '', 0),
+(16, 4, 'VESTA Cinnamon Vanilla', 0, 'The delicate combination of spicy Cinnamon scent with sweet Vanilla scent, scented candles evoke a feeling of togetherness and familiarity, helping to relax the spirit and warm the space.', 8.00, '1732732172637-674770f7da381.png', 4, NULL, '', 0),
+(26, 3, 'VESTA Chrysanthemum Gel Candle', 0, 'The candlelight no longer simply shimmers through the candle wick, but will spread through the decorative gel layer as if shining on a beautiful mirror. This is not only a great aroma therapy but also a useful \"virtual living\" tool.', 7.00, 'ChrysanthemumMini-669021dee1804.jpg', 4, NULL, '', 0),
+(27, 1, 'VESTA Bear Candle', 0, 'The soothing scent from candles can help reduce stress, anxiety and create a feeling of peace. Popular aromas such as lavender, lemon, and jasmine are widely used in scented candles to bring wonderful moments of relaxation.', 4.00, 'gau-jpg-6690222d637c8.webp', 4, NULL, '', 0),
+(28, 2, 'VESTA Tea plant', 0, 'Purify and nourish the soul with natural tea scent. Closing your eyes to meditate makes people feel comfortable and relaxed.', 8.00, 'tea-plant-66902384c5e5f.jpg', 4, NULL, '', 0),
+(32, 1, 'VESTA Orange Candle', 0, 'the smell of oranges, exchanging hugs, holding hands tightly, a little sweetness for the couple for the season of love. After a day of reeling from life, returning home, lighting a jar of candles, seeing the words \"Darling, I\'m home\" sparkling brightly, m', 3.00, 'Orange-669024003a036.webp', 4, NULL, '', 0),
+(33, 1, 'VESTA flower', 0, 'The soothing scent from candles can help reduce stress, anxiety and create a feeling of peace. Popular aromas such as lavender, lemon, and jasmine are widely used in scented candles to bring wonderful moments of relaxation.', 2.00, 'vn-11134201-7qukw-liifb8wobh7619-669024bcd46b3.jpg', 4, NULL, '', 0),
+(35, 4, 'VESTA White tea', 0, 'White tea is a type of tea that is gently processed from young tea leaves and has not undergone much oxidation, retaining its fresh flavor and natural aroma. When transformed into a scented candle scent, white tea brings a peaceful and sophisticated atmos', 5.00, 'white-tea-669024e56c34c.jpg', 4, NULL, '', 0);
 
 -- --------------------------------------------------------
 
@@ -366,7 +418,8 @@ CREATE TABLE `used_voucher` (
 
 INSERT INTO `used_voucher` (`id`, `cus_name`, `voucher`, `deal`, `use_at`) VALUES
 (2, 'Dat 2', 'CODE789000', '4', '2024-07-15 01:41:00'),
-(3, 'bao anh', 'ttt382', '3', '2024-07-10 02:07:00');
+(3, 'bao anh', 'ttt382', '3', '2024-07-10 02:07:00'),
+(4, 'Can', 'abc', '2', '2024-11-28 14:45:00');
 
 -- --------------------------------------------------------
 
@@ -377,7 +430,7 @@ INSERT INTO `used_voucher` (`id`, `cus_name`, `voucher`, `deal`, `use_at`) VALUE
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `username` varchar(180) NOT NULL,
-  `roles` longtext NOT NULL COMMENT '(DC2Type:json)',
+  `roles` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:json)' CHECK (json_valid(`roles`)),
   `password` varchar(255) NOT NULL,
   `birthday` date NOT NULL,
   `address` varchar(255) NOT NULL,
@@ -392,8 +445,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `roles`, `password`, `birthday`, `address`, `phone`, `gender`, `fullname`, `avatar`) VALUES
-(1, 'Baoanh', '[\"ROLE_USER\"]', '$2y$13$WsJ4.0R.9FweR8NVCzx6q.GRU/ptFa0geYHmLVqt4IAm6X4ghMJz2', '2003-07-12', 'Can tho', '0987654324', 1, 'Lam Bao Anh', 'avatar-6695dd5f9fce9.jpg'),
-(3, 'admin', '[\"ROLE_ADMIN\"]', '$2y$13$jvt2X9A84leeUri3MjDL3eLbYbE9tZ6Mjr2wszDf1Nsvp1HPb35Z6', '2024-07-07', 'Can tho', '987654324', 1, 'Tran Nguyet Can', NULL);
+(3, 'admin', '[\"ROLE_ADMIN\"]', '$2y$13$dKOzkqTRdfpjQWhfblHNju9gLri4Ik7rxjX0Adx9FNLe4CBrRfo.2', '2024-07-07', 'Can tho', '987654324', 1, 'Tran Nguyet Can', ''),
+(6, 'Nguyetcan', '[\"ROLE_USER\"]', '$2y$13$dKOzkqTRdfpjQWhfblHNju9gLri4Ik7rxjX0Adx9FNLe4CBrRfo.2', '2003-07-12', 'Can tho', '0987654321', 1, 'Tran Nguyet Can', '1d41f9bc45b3ec152689d16039061e9a-674754757208b.jpg');
 
 -- --------------------------------------------------------
 
@@ -407,16 +460,18 @@ CREATE TABLE `voucher` (
   `deal` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
-  `description` varchar(255) DEFAULT NULL
+  `description` varchar(255) DEFAULT NULL,
+  `percentage` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `voucher`
 --
 
-INSERT INTO `voucher` (`id`, `product_id`, `deal`, `start_date`, `end_date`, `description`) VALUES
-(3, 14, 2, '2024-07-10 22:31:00', '2024-07-15 22:31:00', 'qwww'),
-(8, 4, 9, '2024-07-12 09:58:00', '2024-07-31 09:58:00', 'hhh');
+INSERT INTO `voucher` (`id`, `product_id`, `deal`, `start_date`, `end_date`, `description`, `percentage`) VALUES
+(3, 14, 2, '2024-07-10 22:31:00', '2024-07-15 22:31:00', 'qwww', 0),
+(8, 4, 9, '2024-07-12 09:58:00', '2024-07-31 09:58:00', 'hhh', 0),
+(10, 48, 3, '2024-11-13 14:43:00', '2024-11-30 14:43:00', 'abcd', 16);
 
 -- --------------------------------------------------------
 
@@ -485,19 +540,34 @@ ALTER TABLE `doctrine_migration_versions`
   ADD PRIMARY KEY (`version`);
 
 --
+-- Indexes for table `ingredient`
+--
+ALTER TABLE `ingredient`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_6BAF7870933FE08C` (`ingredient_id`),
+  ADD KEY `IDX_6BAF7870E308AC6F` (`material_id`);
+
+--
+-- Indexes for table `material`
+--
+ALTER TABLE `material`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `order`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_F5299398ED766068` (`username_id`);
+  ADD KEY `IDX_F5299398ED766068` (`username_id`),
+  ADD KEY `IDX_F52993983A546BF7` (`vouchers_id`);
 
 --
 -- Indexes for table `order_detail`
 --
 ALTER TABLE `order_detail`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_ED896F46CFFE9AD6` (`orders_id`),
-  ADD KEY `IDX_ED896F46BC246EFC` (`pro_size_id`);
+  ADD KEY `IDX_ED896F46BC246EFC` (`pro_size_id`),
+  ADD KEY `IDX_ED896F468D9F6D38` (`order_id`);
 
 --
 -- Indexes for table `payment`
@@ -595,7 +665,7 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -607,19 +677,31 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `discount`
 --
 ALTER TABLE `discount`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `ingredient`
+--
+ALTER TABLE `ingredient`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `material`
+--
+ALTER TABLE `material`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -667,19 +749,19 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `used_voucher`
 --
 ALTER TABLE `used_voucher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `voucher`
 --
 ALTER TABLE `voucher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
@@ -699,17 +781,25 @@ ALTER TABLE `cart`
   ADD CONSTRAINT `FK_BA388B7BC246EFC` FOREIGN KEY (`pro_size_id`) REFERENCES `pro_size` (`id`);
 
 --
+-- Constraints for table `ingredient`
+--
+ALTER TABLE `ingredient`
+  ADD CONSTRAINT `FK_6BAF7870933FE08C` FOREIGN KEY (`ingredient_id`) REFERENCES `material` (`id`),
+  ADD CONSTRAINT `FK_6BAF7870E308AC6F` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`);
+
+--
 -- Constraints for table `order`
 --
 ALTER TABLE `order`
+  ADD CONSTRAINT `FK_F52993983A546BF7` FOREIGN KEY (`vouchers_id`) REFERENCES `voucher` (`id`),
   ADD CONSTRAINT `FK_F5299398ED766068` FOREIGN KEY (`username_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  ADD CONSTRAINT `FK_ED896F46BC246EFC` FOREIGN KEY (`pro_size_id`) REFERENCES `pro_size` (`id`),
-  ADD CONSTRAINT `FK_ED896F46CFFE9AD6` FOREIGN KEY (`orders_id`) REFERENCES `order` (`id`);
+  ADD CONSTRAINT `FK_ED896F468D9F6D38` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
+  ADD CONSTRAINT `FK_ED896F46BC246EFC` FOREIGN KEY (`pro_size_id`) REFERENCES `pro_size` (`id`);
 
 --
 -- Constraints for table `product`
@@ -742,8 +832,7 @@ ALTER TABLE `voucher`
 -- Constraints for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  ADD CONSTRAINT `FK_9CE12A314584665A` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
-  ADD CONSTRAINT `FK_9CE12A31A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `FK_9CE12A314584665A` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
