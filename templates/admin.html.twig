@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Danaischg{% endblock %}
+			{% block title %}VESTA{% endblock %}
 		</title>
 		<!-- Writing by Vietnamese -->
 		<meta charset="UTF-8"/>
@@ -11,9 +11,9 @@
 		http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<!-- The size of brower = 100% -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<title>Dana.ischg Store</title>
+		{# <title>VESTA</title> #}
 		<link
-		rel="icon" href="{{asset('images/logo_store.png')}}"/>
+		rel="icon" href="{{ asset('images/logo_store.jpg') }}"/>
 		<!-- bootstrap 5 cdn -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"/>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -39,9 +39,9 @@
 {% block header %}
 	<nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
 		<div class="container-fluid">
-			<a href="{{path('order_page')}}">
+			{# <a href="{{path('order_page')}}">
 				<img class="nav-logo" src="{{asset('images/logo.png')}}"/>
-			</a>
+			</a> #}
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -102,7 +102,7 @@
 								<hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: grey; height: 2px"/>
 								<p class="mx-5">
 									<a href="{{path('showProduct')}}" class="text-dark text-decoration-none">
-										Dana.ischg Store is a brand from Vietnam, born in 2022. Started off as a small thrift shop in CanTho, Vietnam. Through the lens of fashionary, Dana.ischg would like to share experiences and POV in music, movies, and art, connecting the community of youth with global lifestyle.
+										VESTA Store is a brand from Vietnam, born in 2022. Started off as a small thrift shop in CanTho, Vietnam. Through the lens of scented candle, VESTA would like to share experiences and POV in music, movies, and art, connecting the community of youth with global lifestyle.
 									</a>
 								</p>
 							</div>
@@ -126,7 +126,7 @@
 									<a href="{{path('pro_page')}}" class="text-dark text-decoration-none">Product</a>
 								</p>
 								<p>
-									{# <a href="{{path('size_page')}}" class="text-dark text-decoration-none">Size</a> #}
+									<a href="{{path('size_page')}}" class="text-dark text-decoration-none">Size</a>
 								</p>
 							</div>
 

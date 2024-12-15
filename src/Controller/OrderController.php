@@ -36,7 +36,7 @@ class OrderController extends AbstractController
 
 
     /**
-     * @Route("/order", name="addOrder", methods={"POST"})
+     * @Route("/order", name="addOrder", methods={"GET"})
      */
     public function orderAction(ManagerRegistry $reg, OrderRepository $orderRepo, CartRepository $cartRepo,
      ProSizeRepository $proSizeRepo, OrderDetailRepository $orderDetailRepository, VoucherRepository $voucherRepository): Response {

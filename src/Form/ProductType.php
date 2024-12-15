@@ -35,8 +35,8 @@ class ProductType extends AbstractType
                 array(
                     'choices' => array(
                         // So nut radio button
-                        'On Sale' => '0',
-                        'Sold Out' => '1'
+                        'Sold Out' => '0',
+                        'On Sale' => '1'
                     ),
 
                     // Cho chon nhieu hay khong

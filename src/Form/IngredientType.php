@@ -36,6 +36,7 @@ class IngredientType extends AbstractType
                 'data_class' => null
             ])
             
+            
             ->add('save',SubmitType::class,[
                 'label' => "Add"
             ]); 

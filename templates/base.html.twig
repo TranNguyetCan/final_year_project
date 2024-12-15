@@ -100,12 +100,12 @@
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="myModalLabel">Địa chỉ đã chọn</h5>
+									<h5 class="modal-title" id="myModalLabel">Address choosed</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
 								<div class="modal-body">
 									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Tìm nhanh tỉnh thành, quận huyện, phường xã">
+										<input type="text" class="form-control" placeholder="">
 									</div>
 									<div class="branch-column">
 										<div class="col" id="branch-list"></div>
@@ -139,17 +139,18 @@
 									<a href="#" class="dropdown-item">Candle Cup</a>
 								</div>
 							</div>
-							<div class="nav-item dropdown">
+							{# <div class="nav-item dropdown">
 								<a href="{{ path('showIngre') }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Ingredient
 									{# <i class="fa-solid fa-caret-down"></i> #}
-								</a>
+								{# </a>
 								<div class="dropdown-menu fade-down m-0">
-									<a href="#" class="dropdown-item">Candle Wax</a>
-									<a href="#" class="dropdown-item">Essential Oil</a>
-									<a href="#" class="dropdown-item">Scented Candle Cup</a>
-									<a href="#" class="dropdown-item">Candle Decoration</a>
+									<a href="#" class="dropdown-item">Candle</a>
+									<a href="#" class="dropdown-item">Candle wax</a>
+									<a href="#" class="dropdown-item">Flavoring</a>
+									<a href="#" class="dropdown-item">Candle Cup</a>
 								</div>
-							</div>
+							</div> #} 
+							<a class="nav-link" href="{{ path('showIngre') }}">Ingredient</a>	
 							<a class="nav-link" href="{{ path('aboutUs') }}">About</a>
 						</div>
 					</div>

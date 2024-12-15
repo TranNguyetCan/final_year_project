@@ -76,7 +76,15 @@ class ProManageController extends AbstractController
             $p->setPrice($data->getPrice());
             $p->setStatus(1);
             $p->setImage($data->getImage());
-            $p->setForGender($data->isForGender());
+            // $p->setForGender($data->isForGender());
+            $forGender = $req->request->get('forGender'); // Lấy giá trị từ request
+
+            // Kiểm tra giá trị và gán mặc định nếu null
+            if ($forGender === null) {
+                $forGender = false; // Hoặc gán giá trị mặc định true/false
+            }
+
+            $p->setForGender((bool) $forGender); // Ép kiểu về bool trước khi truyền  
             $p->setCategory($data->getCategory());
             $p->setSupplier($data->getSupplier());
 
